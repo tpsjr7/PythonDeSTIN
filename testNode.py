@@ -31,4 +31,14 @@ def main():
 	myNode.initLearningAlgorithm('LogRegression',AlgParams,InitNodeBelief,InitNodeLearnedFeatures)
 	myNode.loadInput(D)
 	myNode.doLearning(1)
+	# here let's try creating multidimensional array of Nodes
+	# Assume Layer2 and it needs 4x4 array of Nodes
+	print "Multi-dim Nodes example"
+	Row = 4
+	Col = 4
+	LayerNum = 2
+	NodeArray = [[Node(LayerNum,[i,j]) for j in range(Row)] for i in range(Col)]
+	for I in range(Row):
+		for J in range(Col):
+			print(NodeArray[I][J].NodePosition)
 main()
