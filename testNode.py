@@ -45,7 +45,7 @@ def LogReg(D,N,training_steps,feats,w):
 	#print w.get_value(), b.get_value()
 	#print "target values for D:", D[1]
 	#print "prediction on D:", predict(D[0])
-	return [w*D[0],w] # returns Learned Weigths and Belief W*Input
+	#return [w*D[0],w] # returns Learned Weigths and Belief W*Input
 class LearningAlgorithm:
 	def __init__(self,AlgParams):
 		self.D = AlgParams['D']
@@ -54,7 +54,7 @@ class LearningAlgorithm:
 		self.feats = AlgParams['feats']
 		self.w = AlgParams['w']
 	def runLearningAlgorithm(self,Mode):
-		[F,W] = LogReg(self.D,self.N,self.training_steps,self.feats,self.w)
+		LogReg(self.D,self.N,self.training_steps,self.feats,self.w)
 class Node:
 	def __init__(self,LayerNumber,NodePos):
 		self.LayerNumber = LayerNumber
@@ -82,10 +82,9 @@ class Node:
 		self.Input = Input
 
 	def doLearning(self, Mode):
-		[Belief, LearnedFeatures] = self.LearningAlgorithm.runLearningAlgorithm(Mode)
-		if Mode==1:
-			self.Belief = Belief
-			self.LearnedFeatures = LearnedFeatures
+		self.LearningAlgorithm.runLearningAlgorithm(Mode)
+		self.Belief = self.LearningAlgorithm.w * self.LearningAlgorithm.D[0]
+		self.LearnedFeatures = self.LearningAlgorithm.w 
 		# Mode Differentiates Training from Testing 
 		# Mode == 1 Training: there will be update of Model/ or parameters
 		# Mode == 0 Testing: No model-updating only encoding
