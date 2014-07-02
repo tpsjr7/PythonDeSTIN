@@ -4,14 +4,8 @@ Created on Tue Jul  2 2014
 @author: teddy
 """
 
-import numpy as np
 import scipy.io as io
-from random import randrange
-import theano
-from theano import function
-import theano.tensor as T
 from LearningAlgorithm import *
-rng = np.random
 
 class Node:
 	def __init__(self,LayerNumber,NodePos):
@@ -32,27 +26,24 @@ class Node:
 			self.LearningAlgorithm.training_steps = AlgParams['training_steps']
 			self.LearningAlgorithm.feats = AlgParams['feats']
 			self.LearningAlgorithm.w = AlgParams['w']
-		elif AlgorithmChoice == 'KMeans':
-			#KMeans Stuff will go on here Like what we did above
-		else:
-			print('make sure that you are choosing an available learning algorithm')
-			print('python is exitting')
-			exit(0)
-
 	def loadInput(self,Input):
 		self.Input = Input
-
 	def doLearning(self, Mode):
 		if self.AlgorithmChoice == 'LogRegression':
 			self.LearningAlgorithm.runLearningAlgorithm(Mode)
 			self.Belief = self.LearningAlgorithm.w * self.LearningAlgorithm.D[0]
 			self.LearnedFeatures = self.LearningAlgorithm.w
-		elif self.AlgorithmChoice == 'KMeans':
-			#
-			#
 		else:
-			#
-			#
+			
+			
+			'''		elif AlgorithmChoice == 'KMeans':
+			#KMeans Stuff will go on here Like what we did above
+		else:
+			print('make sure that you are choosing an available learning algorithm')
+			print('python is exitting')
+			exit(0)
+'''
+
 
 '''
 Steps to train a node

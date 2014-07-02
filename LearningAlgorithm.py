@@ -10,8 +10,6 @@ from random import randrange
 import theano
 from theano import function
 import theano.tensor as T
-rng = np.random
-
 
 def LogReg(D,N,training_steps,feats,w):
 	# Declare Theano symbolic variables
@@ -27,8 +25,6 @@ def LogReg(D,N,training_steps,feats,w):
 	xent = -y * T.log(p_1) - (1-y) * T.log(1-p_1) # Cross-entropy loss function
 	cost = xent.mean() + 0.01 * (w ** 2).sum()# The cost to minimize
 	gw, gb = T.grad(cost, [w, b])             # Compute the gradient of the cost
-											  # (we shall return to this in a
-											  # following section of this tutorial)
 
 	# Compile
 	train = theano.function(
