@@ -24,6 +24,7 @@ class Node:
 			self.AlgorithmChoice = AlgorithmChoice # Name of the Algorithm
 			self.Belief = InitNodeBelief
 			self.LearnedFeatures = InitNodeLearnedFeatures
+			#Here do some LogRegression Specific Variable Assignments
 			#Attrbutes For the learning Algorithm Class
 			self.LearningAlgorithm = LearningAlgorithm(AlgParams)
 			self.LearningAlgorithm.D = AlgParams['D']
@@ -31,6 +32,8 @@ class Node:
 			self.LearningAlgorithm.training_steps = AlgParams['training_steps']
 			self.LearningAlgorithm.feats = AlgParams['feats']
 			self.LearningAlgorithm.w = AlgParams['w']
+		elif AlgorithmChoice == 'KMeans':
+			#KMeans Stuff will go on here Like what we did above
 		else:
 			print('make sure that you are choosing an available learning algorithm')
 			print('python is exitting')
@@ -40,9 +43,17 @@ class Node:
 		self.Input = Input
 
 	def doLearning(self, Mode):
-		self.LearningAlgorithm.runLearningAlgorithm(Mode)
-		self.Belief = self.LearningAlgorithm.w * self.LearningAlgorithm.D[0]
-		self.LearnedFeatures = self.LearningAlgorithm.w
+		if self.AlgorithmChoice == 'LogRegression':
+			self.LearningAlgorithm.runLearningAlgorithm(Mode)
+			self.Belief = self.LearningAlgorithm.w * self.LearningAlgorithm.D[0]
+			self.LearnedFeatures = self.LearningAlgorithm.w
+		elif self.AlgorithmChoice == 'KMeans':
+			#
+			#
+		else:
+			#
+			#
+
 '''
 Steps to train a node
 	1. Declare The Node Object with LayerNum and LayerPosition
