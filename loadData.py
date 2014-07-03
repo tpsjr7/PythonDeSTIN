@@ -2,7 +2,8 @@
 import numpy as np
 import cPickle
 import scipy.io as io
-
+# Contains loading cifar batches and
+# feeding input to lower layer nodes
 def loadCifar(batchNum):
 	# For training_batches specify numbers 1 to 5
 	# for the test set pass 6

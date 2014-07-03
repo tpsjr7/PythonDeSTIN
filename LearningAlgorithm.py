@@ -20,11 +20,11 @@ def LogReg(D,N,training_steps,feats,w):
 	print w.get_value(), b.get_value()
 
 	# Construct Theano expression graph
-	p_1 = 1 / (1 + T.exp(-T.dot(x, w) - b))   # Probability that target = 1
-	prediction = p_1 > 0.5                    # The prediction thresholded
-	xent = -y * T.log(p_1) - (1-y) * T.log(1-p_1) # Cross-entropy loss function
-	cost = xent.mean() + 0.01 * (w ** 2).sum()# The cost to minimize
-	gw, gb = T.grad(cost, [w, b])             # Compute the gradient of the cost
+	p_1 = 1 / (1 + T.exp(-T.dot(x, w) - b))   		# Probability that target = 1
+	prediction = p_1 > 0.5                    		# The prediction thresholded
+	xent = -y * T.log(p_1) - (1-y) * T.log(1-p_1) 	# Cross-entropy loss function
+	cost = xent.mean() + 0.01 * (w ** 2).sum()		# The cost to minimize
+	gw, gb = T.grad(cost, [w, b])             		# Compute the gradient of the cost
 
 	# Compile
 	train = theano.function(
@@ -37,11 +37,6 @@ def LogReg(D,N,training_steps,feats,w):
 	for i in range(training_steps):
 		pred, err = train(D[0], D[1])
 
-	#print "Final model:"
-	#print w.get_value(), b.get_value()
-	#print "target values for D:", D[1]
-	#print "prediction on D:", predict(D[0])
-	#return [w*D[0],w] # returns Learned Weigths and Belief W*Input
 class LearningAlgorithm:
 	def __init__(self,AlgParams):
 		self.D = AlgParams['D']
