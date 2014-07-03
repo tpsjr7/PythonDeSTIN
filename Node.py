@@ -35,14 +35,6 @@ class Node:
 			self.LearnedFeatures = self.LearningAlgorithm.w
 		else:
 			
-			
-			'''		elif AlgorithmChoice == 'KMeans':
-			#KMeans Stuff will go on here Like what we did above
-		else:
-			print('make sure that you are choosing an available learning algorithm')
-			print('python is exitting')
-			exit(0)
-'''
 
 
 '''

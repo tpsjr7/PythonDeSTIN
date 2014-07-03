@@ -41,4 +41,5 @@ def main():
 	for I in range(Row):
 		for J in range(Col):
 			print(NodeArray[I][J].NodePosition)
+	print(type(myNode.Belief))
 main()
