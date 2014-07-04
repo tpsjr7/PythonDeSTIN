@@ -43,7 +43,7 @@ def returnNodeInput(Input,Position,Ratio,Mode,ImageType):
 			PatchDepth = 3
 		else:
 			PatchDepth = 1
-		Patch = Input[Position[0]:Position[0]+PatchWidth,Position[1]:Position[1]+PatchHeight].reshape(1,(Ratio**2)*PatchDepth)
+		Patch = Input[Position[0]:Position[0]+PatchWidth,Position[1]:Position[1]+PatchHeight].reshape(1,PatchWidth*PatchWidth*PatchDepth)
 	else:# TODO Overlapping Patchecould be fed to a node
 		print('Overlapping Patches Are Not Implemented Yet')
 		patch = np.array([])
