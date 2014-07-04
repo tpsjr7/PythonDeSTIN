@@ -20,28 +20,19 @@ class Node:
 			self.LearnedFeatures = InitNodeLearnedFeatures
 			#Here do some LogRegression Specific Variable Assignments
 			#Attrbutes For the learning Algorithm Class
+			AlgParams['D'] = [self.Input,np.random.randint(size=AlgParams['N'], low=0, high=2)]
 			self.LearningAlgorithm = LearningAlgorithm(AlgParams)
-			self.LearningAlgorithm.D = AlgParams['D']
+			self.LearningAlgorithm.D = [self.Input,np.random.randint(size=AlgParams['N'], low=0, high=2)]
 			self.LearningAlgorithm.N = AlgParams['N']
 			self.LearningAlgorithm.training_steps = AlgParams['training_steps']
 			self.LearningAlgorithm.feats = AlgParams['feats']
 			self.LearningAlgorithm.w = AlgParams['w']
-	def loadInput(self,Input):
-		self.Input = Input
+	def loadInput(self,In):
+		self.Input = In
 	def doLearning(self, Mode):
 		if self.AlgorithmChoice == 'LogRegression':
 			self.LearningAlgorithm.runLearningAlgorithm(Mode)
 			self.Belief = self.LearningAlgorithm.w * self.LearningAlgorithm.D[0]
 			self.LearnedFeatures = self.LearningAlgorithm.w
 		else:
-			
-
-
-'''
-Steps to train a node
-	1. Declare The Node Object with LayerNum and LayerPosition
-	2. Initialize LearningAlgorithm
-	3. Load the node with Input
-	3. doLearning by specifying the Mode
-	 
-'''
+			print("only LogRegression Exists")
