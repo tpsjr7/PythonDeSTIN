@@ -28,7 +28,9 @@ class Layer:
 			for I in range(0,len(Input[0]),Ratio):
 				Ny = 0 # Y coordinate of the current node
 				for J in range(0,len(Input[1]),Ratio):
-					self.Nodes[Nx][Ny].loadInput(returnNodeInput(Input,[I,J],Ratio,self.PatchMode,self.ImageType)	) # returns inputs to the node located at Position [I,J]
+					self.Nodes[Nx][Ny].loadInput(returnNodeInput(Input,[I,J],Ratio,self.PatchMode,self.ImageType)) # returns inputs to the node located at Position [I,J]
+					Ny += 1
+				Nx += 1
 		else:
 			Nx = 0 # X coordinate of the current node
 			Ny = 0 # Y coordinate of the curret node
