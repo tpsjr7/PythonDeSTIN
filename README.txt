@@ -1,4 +1,5 @@
-﻿This is a repo for the development of Python DeSTIN (PyDeSTIN).
+﻿
+PytonDeSTIN is a repo for the development of Python DeSTIN (PyDeSTIN).
 As a starting point: 
 	-> here I have developed a Node and Learning Algorithm Classes
 		- Just to get a sense og Learning Algorithm inside a node.
@@ -11,28 +12,35 @@ The Classes will be placed in a nested fashion as follows:
      Layer
 	Node
 	  LearningAlgorithm
+
+
 TODO List:
+
 - Data Preprocessing i.e ZCA Whitening and Normalization
 - A Network Class
 - Learning Algorithms in Theano:
 	- Stable Incremental Clustering 
 	- Online Sparse AutoEncoder
 Taking into consideration points listed here: http://wiki.opencog.org/w/New_DeSTIN_Redesign_Proposal	
-We will have explicit branches for
+We will have explicit branches for A to D.
 
 A) pure DeSTIN: flexible enough to support different learning algorithms
 		(This is Almost Done)
+
 B) a LeNet style CNN built using the general-purpose CNN layer 
-(The theory may require revision)
-(How to make sense of the Complex and Simple cell like filters simulated in the CNN?)
-(Pooling is also an issue.....)
+	(The theory may require revision)
+	(How to make sense of the Complex and Simple cell like filters simulated in 	the CNN?)
+	(Pooling is also an issue.....)
+
 C) hybrid DeSTIN-CNN without feedback 
 
-D) hybrid DeSTIN-CNN with feedback 
+
+D) hybrid DeSTIN-CNN with feedback
+
+
+
 Reading List For DeSTIN:
 
-Papers about DeSTIN
--------------------
 * http://web.eecs.utk.edu/~itamar/Papers/BICA2009.pdf
 * http://www.ece.utk.edu/~itamar/Papers/BICA2011T.pdf
 * http://web.eecs.utk.edu/~itamar/Papers/AI_MAG_2011.pdf
