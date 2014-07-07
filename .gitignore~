@@ -1,16 +1,3 @@
-testNodeNew.py
-junky.py
-class1.py
-class2.py
-.gitignore
 Cifar/*
-cifar.py
-LearningAlgorithm.pyc
-#Node.pyc
-README.txt~
-cifar.pyc
-junk2.py
-loadData.pyc
-myClass.pyc
-regression.py
+testFiles/*
 
