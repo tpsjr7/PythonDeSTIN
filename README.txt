@@ -1,5 +1,5 @@
 ﻿
-PytonDeSTIN is a repo for the development of Python DeSTIN (PyDeSTIN).
+PythonDeSTIN is a repo for the development of Python DeSTIN (PyDeSTIN).
 As a starting point: 
 	-> here I have developed a Node and Learning Algorithm Classes
 		- Just to get a sense og Learning Algorithm inside a node.
@@ -10,8 +10,8 @@ The whole PyDeSTIN will have Four Classes: LearningAlgorithm, Node, Layer and Ne
 The Classes will be placed in a nested fashion as follows:
 -> Network
      Layer
-	Node
-	  LearningAlgorithm
+    	Node
+	      LearningAlgorithm
 
 
 TODO List:
