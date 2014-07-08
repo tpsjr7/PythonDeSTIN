@@ -7,7 +7,7 @@ from Node import *
 # self,numLayers,AlgChoice,AlgParams,NumNodesPerLayer,PatchMode='Adjacent',ImageType='Color'
 numLayers = 4
 NumNodesPerLayer = [[8, 8], [4, 4], [2, 2], [1, 1]]
-## Here AlgParams are being instialized
+## Here AlgParams are being initialized
 N = 1
 feats = 16
 img = np.random.rand(32, 32)
