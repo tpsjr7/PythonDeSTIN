@@ -1,5 +1,6 @@
 Cifar/*
 testFiles/*
+.idea/*
 #.gitignore
 LearningAlgorithm.pyc
 Node.pyc
