@@ -1,0 +1,7 @@
+Cifar/*
+testFiles/*
+#.gitignore
+LearningAlgorithm.pyc
+Node.pyc
+README.txt~
+loadData.pyc
