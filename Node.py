@@ -18,7 +18,7 @@ class Node:
         self.AlgorithmChoice = []
         self.Input = []
 
-    def initNodeLearningParams(self, AlgorithmChoice, AlgParams):
+    def initNodeLearningParams(self, AlgorithmChoice, AlgParams, LayerNum):
         self.AlgorithmChoice = AlgorithmChoice
         if AlgorithmChoice == 'LogRegression':
             # Here do some LogRegression Specific Variable Assignments
@@ -26,10 +26,16 @@ class Node:
             # AlgParams['D'] = [self.Input, np.random.randint(size=AlgParams['N'], low=0, high=2)]
             self.Belief = AlgParams['w'] * AlgParams['D'][0]
             self.LearnedFeatures = AlgParams['w']
-            #Nodes = [[Node(LayerNum,[i,j]) for j in range(Row)] for i in range(Col)]
+            # Nodes = [[Node(LayerNum,[i,j]) for j in range(Row)] for i in range(Col)]
             self.LearningAlgorithm = LearningAlgorithm(AlgParams)
         elif AlgorithmChoice == 'Clustering':
-            self.LearningAlgorithm = Clustering(AlgParams['mr'], AlgParams['vr'], AlgParams['sr'], len(self.Input[0]),
+            InputWidths = AlgParams['NumCentsPerLayer']
+            # InputWidth = InputWidths[LayerNum]
+            if LayerNum == 0:
+                InputWidth = 48
+            else:
+                InputWidth = InputWidths[LayerNum] * 4
+            self.LearningAlgorithm = Clustering(AlgParams['mr'], AlgParams['vr'], AlgParams['sr'], InputWidth,
                                                 AlgParams['NumCentsPerLayer'][self.LayerNumber], self.NodePosition)
             #self.LearningAlgorithm.DIMS = len(self.Input)
             #self.LearningAlgorithm.CENTS = AlgParams['NumNodesPerLayer'][self.LayerNumber][0]

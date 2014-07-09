@@ -2,14 +2,13 @@
 __author__ = 'teddy'
 from Layer import *
 import scipy.io as io
-#io.savemat(FileName,Dict,True)
+# io.savemat(FileName,Dict,True)
 # TODO: get ridoff the sequential requirements like first feed the layer an input the you can initialize it
 
 class Network():
-
     def __init__(self, numLayers, AlgChoice, AlgParams, NumNodesPerLayer, PatchMode='Adjacent', ImageType='Color'):
         self.NetworkBelief = {}
-        self.NetworkBelief['data'] = [] # this is going to store beliefs for every image DeSTIN sees
+        self.NetworkBelief['data'] = []  # this is going to store beliefs for every image DeSTIN sees
         self.saveBeliefOption = 'True'
         self.BeliefFileName = 'Beliefs.mat'
         self.NumberOfLayers = numLayers
@@ -38,4 +37,4 @@ class Network():
                     #label is dropped from dumping coz it doesn't exist when testing
 
     def dumpBelief(self):
-        io.save_as_module(self.BeliefFileName,self.NetworkBelief)
+        io.save_as_module(self.BeliefFileName, self.NetworkBelief)

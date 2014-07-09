@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 __author__ = 'Steven'
-#Modified at iCogLabs
+# Modified at iCogLabs
 import numpy as np
+
 
 class Clustering:
     """
@@ -20,7 +21,6 @@ class Clustering:
         Initialization function used by the base class and subclasses.
         """
 
-
         self.MEANRATE = mr
         self.VARRATE = vr
         self.STARVRATE = sr
@@ -34,7 +34,7 @@ class Clustering:
         self.belief = np.zeros((1, self.CENTS))
 
         self.children = []
-        self.last = np.zeros((1,self.DIMS))
+        self.last = np.zeros((1, self.DIMS))
         self.whitening = False
 
     def update_node(self, input, TRAIN):
@@ -42,10 +42,10 @@ class Clustering:
         Update the node based on an input and training flag.
         """
 
-        input = input.reshape(1,self.DIMS)
-        self.process_input(input,TRAIN)
+        input = input.reshape(1, self.DIMS)
+        self.process_input(input, TRAIN)
 
-    def process_input(self,input,TRAIN):
+    def process_input(self, input, TRAIN):
         """
         Node update function for base class and subclasses.
         """
@@ -54,7 +54,7 @@ class Clustering:
         diff = input - self.mean
         sqdiff = np.square(diff)
         if TRAIN:
-            self.train_node(diff,sqdiff)
+            self.train_node(diff, sqdiff)
         self.produce_belief(sqdiff)
 
     def train_node(self, diff, sqdiff):
@@ -79,10 +79,10 @@ class Clustering:
 
         # Find and Update Winner
         winner = np.argmin(dist)
-        self.mean[winner, :] +=self.MEANRATE*diff[winner,:]
-        vdiff = np.square(diff[winner,:]) - self.var[winner,:] # this should be updated to use sqdiff
-        self.var[winner,:] += self.VARRATE*vdiff
-        self.starv *= (1.0-self.STARVRATE)
+        self.mean[winner, :] += self.MEANRATE * diff[winner, :]
+        vdiff = np.square(diff[winner, :]) - self.var[winner, :]  # this should be updated to use sqdiff
+        self.var[winner, :] += self.VARRATE * vdiff
+        self.starv *= (1.0 - self.STARVRATE)
         self.starv[winner] += self.STARVRATE
 
     def produce_belief(self, sqdiff):
@@ -96,8 +96,8 @@ class Clustering:
             self.belief = np.zeros((1, self.CENTS))
             self.belief[chk] = 1.0
         else:
-            normdist = 1/normdist
-            self.belief = (normdist/sum(normdist)).reshape(1, self.CENTS)
+            normdist = 1 / normdist
+            self.belief = (normdist / sum(normdist)).reshape(1, self.CENTS)
 
     def add_child(self, child):
         """
@@ -111,18 +111,18 @@ class Clustering:
         Update node that has children nodes.
         """
 
-        input = np.concatenate([c.belief for c in self.children],axis=1)
+        input = np.concatenate([c.belief for c in self.children], axis=1)
         self.update_node(input, TRAIN)
 
-    def init_whitening(self,mn=[], st=[], tr=[]):
+    def init_whitening(self, mn=[], st=[], tr=[]):
         """
         Initialize whitening parameters.
         """
 
         # Rescale initial means, since inputs will no longer
         # be non-negative.
-        self.mean[:, self.LABDIMS:self.LABDIMS+self.EXTDIMS] *= 2.0
-        self.mean[:, self.LABDIMS:self.LABDIMS+self.EXTDIMS] -= 1.0
+        self.mean[:, self.LABDIMS:self.LABDIMS + self.EXTDIMS] *= 2.0
+        self.mean[:, self.LABDIMS:self.LABDIMS + self.EXTDIMS] -= 1.0
 
         self.whitening = True
         self.patch_mean = mn
