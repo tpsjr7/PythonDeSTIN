@@ -1,8 +1,11 @@
 Cifar/*
 testFiles/*
-.idea/*
 #.gitignore
 LearningAlgorithm.pyc
 Node.pyc
 README.txt~
 loadData.pyc
+TODOIST.txt
+TODOIST.txt~
+*.mat
+octave-core

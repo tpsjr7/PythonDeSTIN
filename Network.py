@@ -8,7 +8,8 @@ import scipy.io as io
 class Network():
     def __init__(self, numLayers, AlgChoice, AlgParams, NumNodesPerLayer, PatchMode='Adjacent', ImageType='Color'):
         self.NetworkBelief = {}
-        self.NetworkBelief['data'] = []  # this is going to store beliefs for every image DeSTIN sees
+        self.LowestLayer = 1
+        self.NetworkBelief['Belief'] = np.array([])  # this is going to store beliefs for every image DeSTIN sees
         self.saveBeliefOption = 'True'
         self.BeliefFileName = 'Beliefs.mat'
         self.NumberOfLayers = numLayers
@@ -21,6 +22,8 @@ class Network():
 
     def setMode(self, Mode):
         self.OperatingMode = Mode
+    def setLowestLayer(self,LowestLayer):
+        self.LowestLayer = LowestLayer
 
     def initLayer(self, LayerNum):  # TODO make sure lower layer is initialized (or trained at least once)
         self.Layers[0][LayerNum].initLayerLearningParams(self.AlgorithmChoice, self.AlgorithmParams)
@@ -29,12 +32,14 @@ class Network():
         self.Layers[0][LayerNum].doLayerLearning(self.OperatingMode)
 
     def updateBeliefExporter(self):
-        for i in range(len(self.NumberOfLayers)):
-            for j in range(len(self.Layers[0][i].NumberOfNodes[0])):
-                for k in range(len(self.Layers[0][i].NumberOfNodes[1])):
-                    self.NetworkBelief['data'].append(self.Layers[0][i].Nodes[j][k].Belief)
-                    #self.Belief['labels'].append(self.Layers[0][i].Nodes[j][k].Label)
-                    #label is dropped from dumping coz it doesn't exist when testing
+        for i in range(self.LowestLayer, self.NumberOfLayers):
+            for j in range(len(self.Layers[0][i].Nodes)):
+                for k in range(len(self.Layers[0][i].Nodes[0])):
+                    if self.NetworkBelief['Belief'] == np.array([]):
+                        self.NetworkBelief['Belief'] = np.array(self.Layers[0][i].Nodes[j][k].Belief).ravel()
+                    else:
+                        self.NetworkBelief['Belief'] = np.hstack((np.array(self.NetworkBelief['Belief']),
+                                                              np.array(self.Layers[0][i].Nodes[j][k].Belief).ravel()))
 
     def dumpBelief(self):
-        io.save_as_module(self.BeliefFileName, self.NetworkBelief)
+        io.savemat(self.BeliefFileName, self.NetworkBelief)

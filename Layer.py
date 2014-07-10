@@ -19,16 +19,14 @@ class Layer:
         self.Nodes = Nodes
 
     def loadInput(self, Input, Ratio):
-        # Ratio tells equals to the number of lower layer units getting combined and being fed to the upper layer
-        # 1. LayerNumber==0 getting Layer is getting input from raw image
-        # 2. LayerNumber>=1 getting Layer is getting input from beliefs of lower layer Nodes i.e the Nodes matrix passed up
+        # Ratio equals to the number of lower layer units getting combined and being fed to the upper layer
         if self.LayerNumber == 0:
             Nx = 0  # X coordinate of the current node
             for I in range(0, Input.shape[0], Ratio):
                 Ny = 0  # Y coordinate of the current node
                 for J in range(0, Input.shape[1], Ratio):
                     self.Nodes[Nx][Ny].loadInput(returnNodeInput(Input, [I, J], Ratio, self.PatchMode,
-                                                                 self.ImageType))  # returns inputs to the node located at Position [I,J]
+                                                                 self.ImageType))  # returns inputs to the node located at Position [Nx,Ny]
                     Ny += 1
                 Nx += 1
         else:
@@ -41,17 +39,15 @@ class Layer:
                     for K in range(I, I + Ratio):
                         for L in range(J, J + Ratio):
                             InputTemp = np.append(InputTemp, np.asarray(Input[K][
-                                                                            L].Belief))  # ((InputTemp, np.asarray(Input[K][L].Belief).T))  # Combine the Beliefs of Nodes
+                                                                            L].Belief))# Combine the Beliefs of the Nodes passed
                     self.Nodes[Nx][Ny].loadInput(InputTemp)
                     Ny += 1
                 Nx += 1
 
     def initLayerLearningParams(self, AlgorithmChoice, AlgParams):
-        #print len(self.Nodes)
-        #print len(self.Nodes[0])
         for I in range(len(self.Nodes)):
             for J in range(len(self.Nodes[0])):
-                self.Nodes[I][J].initNodeLearningParams(AlgorithmChoice, AlgParams, self.LayerNumber)
+                self.Nodes[I][J].initNodeLearningParams(AlgorithmChoice, AlgParams)
 
     def doLayerLearning(self, Mode):
         for I in range(len(self.Nodes)):

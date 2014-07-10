@@ -19,14 +19,15 @@ AlgParams = {'mr': 0.01, 'vr': 0.01, 'sr': 0.001, 'DIMS': [], 'CENTS': [], 'node
 
 DESTIN = Network(numLayers, AlgorithmChoice, AlgParams, NumNodesPerLayer, PatchMode, ImageType)
 DESTIN.setMode(NetworkMode)
-
+DESTIN.setLowestLayer(2)
 #Load Data
-[data, labels] = loadCifar(1)
+[data, labels] = loadCifar(1) # loads cifar_data_batch_1
 
 for L in range(DESTIN.NumberOfLayers):
     DESTIN.initLayer(L)
-for I in range(data.shape[0]):
-    if I%1000 == 0:
+#data.shape[0]
+for I in range(2):# For Every image in the data set
+    if I%1 == 0:
         print("Iteration Number %d" % I)
     for L in range(DESTIN.NumberOfLayers):
         if L == 0:
@@ -35,3 +36,6 @@ for I in range(data.shape[0]):
         else:
             DESTIN.Layers[0][L].loadInput(DESTIN.Layers[0][L-1].Nodes,2)
         DESTIN.Layers[0][L].doLayerLearning(NetworkMode)
+    DESTIN.updateBeliefExporter()
+DESTIN.dumpBelief()
+#print np.asarray(DESTIN.NetworkBelief['Belief'][339]).shape

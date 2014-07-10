@@ -7,3 +7,5 @@ README.txt~
 loadData.pyc
 TODOIST.txt
 TODOIST.txt~
+*.mat
+octave-core
