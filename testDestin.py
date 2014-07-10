@@ -16,15 +16,13 @@ AlgorithmChoice = 'Clustering'
 AlgParams = {'mr': 0.01, 'vr': 0.01, 'sr': 0.001, 'DIMS': [], 'CENTS': [], 'node_id': [],
              'NumCentsPerLayer': NumCentsPerLayer}
 #Declare a Network Object
-
 DESTIN = Network(numLayers, AlgorithmChoice, AlgParams, NumNodesPerLayer, PatchMode, ImageType)
-DESTIN.setMode(NetworkMode)
+DESTIN.setMode(NetworkMode) #training or not
 DESTIN.setLowestLayer(2)
 #Load Data
 [data, labels] = loadCifar(1) # loads cifar_data_batch_1
-
-for L in range(DESTIN.NumberOfLayers):
-    DESTIN.initLayer(L)
+#Initialize Network; there is is also a layer initialization option
+DESTIN.initNetwork()
 #data.shape[0]
 for I in range(2):# For Every image in the data set
     if I%1 == 0:
@@ -38,4 +36,3 @@ for I in range(2):# For Every image in the data set
         DESTIN.Layers[0][L].doLayerLearning(NetworkMode)
     DESTIN.updateBeliefExporter()
 DESTIN.dumpBelief()
-#print np.asarray(DESTIN.NetworkBelief['Belief'][339]).shape

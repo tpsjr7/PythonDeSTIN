@@ -1,3 +1,4 @@
+cifarOld.py
 Cifar/*
 testFiles/*
 #.gitignore
@@ -9,3 +10,6 @@ TODOIST.txt
 TODOIST.txt~
 *.mat
 octave-core
+ClusteringTheano.py
+testSupervisedClustering.py
+testSupervisedClustering.pyc

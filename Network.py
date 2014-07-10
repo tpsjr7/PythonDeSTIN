@@ -22,6 +22,9 @@ class Network():
 
     def setMode(self, Mode):
         self.OperatingMode = Mode
+    def initNetwork(self):
+        for L in range(self.NumberOfLayers):
+            self.initLayer(L)
     def setLowestLayer(self,LowestLayer):
         self.LowestLayer = LowestLayer
 

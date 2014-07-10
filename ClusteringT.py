@@ -28,11 +28,11 @@ class Clustering:
         self.DIMS = di
         self.CENTS = ce
         self.ID = node_id
-        #srng = RandomStreams(seed=100)
-        #rv_u = srng.uniform((self.CENTS, self.DIMS))
-        #f = function([], rv_u)
-        self.mean = 255*np.random.rand(self.CENTS, self.DIMS)
-        #print self.mean
+        srng = RandomStreams(seed=234)
+        rv_u = srng.uniform((self.CENTS, self.DIMS))
+        f = function([], rv_u)
+        self.mean = f()#np.random.rand(self.CENTS, self.DIMS)
+        print type(self.mean)
         self.var = 0.001 * np.ones((self.CENTS, self.DIMS))
         self.starv = np.ones((self.CENTS, 1))
         self.belief = np.zeros((1, self.CENTS))
