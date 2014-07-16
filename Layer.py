@@ -53,3 +53,40 @@ class Layer:
         for I in range(len(self.Nodes)):
             for J in range(len(self.Nodes[0])):
                 self.Nodes[I][J].doNodeLearning(Mode)
+    def trainTypicalNode(self,Input,windowSize):
+        TN = self.Nodes[0][0]
+        [H,V] = windowSize
+        if self.LayerNumber == 0:
+            X = Input.shape[0] - H + 1
+            Y = Input.shape[1] - V + 1
+            for I in range(X):
+                for J in range(Y):
+                    TN.loadInput(returnNodeInput(Input, [I, J], H, self.PatchMode,self.ImageType))
+        else:
+            X = len(Input[0]) - H + 1
+            Y = len(Input[1]) - V + 1
+            InputTemp = np.array([])
+            for I in range(X):
+                for J in range(Y):
+                    if self.LayerNumber == 0:
+                        TN.loadInput(returnNodeInput(Input, [I, J], H, self.PatchMode,self.ImageType))
+                else:
+                    for I in range(X):
+                        for J in range(Y):
+                            InputTemp = np.array([])
+                            for K in range(I, I+H):
+                                for L in range(J, J+V):
+                                    InputTemp = np.append(InputTemp, np.asarray(Input[K][L].Belief))
+                                    # Combine the Beliefs of the Nodes passed
+                            TN.loadInput(InputTemp)
+                            TN.doNodeLearning(True)
+
+
+    def shareCentroids(self):
+        for I in range(self.Nodes):
+            for J in range(self.Nodes[0]):
+                self.Nodes[I][J].LearningAlgorithm.mean = self.Nodes[0][0].LearningAlgorithm.mean
+    def updateBeliefs(self):
+        for I in range(self.Nodes):
+            for J in range(self.Nodes[0]):
+                self.Nodes[I][J].doNodeLearning(False)

@@ -46,3 +46,5 @@ class Network():
 
     def dumpBelief(self):
         io.savemat(self.BeliefFileName, self.NetworkBelief)
+    def cleanBeliefExporter(self):
+        self.NetworkBelief['Belief'] = np.array([])

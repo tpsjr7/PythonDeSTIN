@@ -2,6 +2,7 @@
 from numpy import *
 import cPickle
 from random import randrange
+import numpy as np
 # Contains loading cifar batches and
 # feeding input to lower layer nodes
 def read_cifar_file(fn):
