@@ -26,7 +26,7 @@ DESTIN.initNetwork()
 #data.shape[0]
 for I in range(data.shape[0]):# For Every image in the data set
     if I%1000 == 0:
-        print("Iteration Number %d" % I)
+        print("Training Iteration Number %d" % I)
     for L in range(DESTIN.NumberOfLayers):
         if L == 0:
             img = data[I][:].reshape(32,32,3)
@@ -37,7 +37,7 @@ for I in range(data.shape[0]):# For Every image in the data set
     DESTIN.updateBeliefExporter()
 DESTIN.dumpBelief()
 DESTIN.cleanBeliefExporter()#Get ridoff accumulated training beliefs
-print("Iteration Started")
+print("Testing Started")
 NetworkMode = False
 DESTIN.setMode(NetworkMode)
 del data, labels
@@ -45,7 +45,7 @@ del data, labels
 del labels
 for I in range(data.shape[0]):# For Every image in the data set
     if I%1000 == 0:
-        print("Training Iteration Number %d" % I)
+        print("Testing Iteration Number %d" % I)
     for L in range(DESTIN.NumberOfLayers):
         if L == 0:
             img = data[I][:].reshape(32,32,3)
