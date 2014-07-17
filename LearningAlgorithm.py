@@ -4,10 +4,10 @@ Created on Tue Jul  2 2014
 @author: teddy
 """
 
-import theano
-import theano.tensor as T
+#import theano
+#import theano.tensor as T
 
-
+'''
 def LogReg(D, N, training_steps, feats, w):
     # Declare Theano symbolic variables
     x = T.matrix("x")
@@ -33,7 +33,7 @@ def LogReg(D, N, training_steps, feats, w):
     # Train
     for i in range(training_steps):
         pred, err = train(D[0], D[1])
-
+'''
 
 class LearningAlgorithm:
     def __init__(self, AlgParams):

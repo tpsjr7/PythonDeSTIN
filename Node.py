@@ -9,14 +9,14 @@ from Clustering import *
 from loadData import *
 
 class Node:
-    def __init__(self, LayerNumber, NodePos):
+    def __init__(self, LayerNumber, NodePos, cifarstat={'patch_mean':[],'patch_std':[],'whiten_mat':[]}):
         self.LayerNumber = LayerNumber
         self.NodePosition = NodePos
         self.Belief = []
-        cifarStat = load_cifar(4)
-        self.patch_mean = cifarStat['patch_mean']
-        self.patch_std = cifarStat['patch_std']
-        self.v = cifarStat['whiten_mat']
+        #cifarStat = load_cifar(4)# to be used for Normalization and Whitening Purposes
+        self.patch_mean = cifarstat['patch_mean']
+        self.patch_std = cifarstat['patch_std']
+        self.v = cifarstat['whiten_mat']
 
     def initNodeLearningParams(self, AlgorithmChoice, AlgParams):
         self.AlgorithmChoice = AlgorithmChoice

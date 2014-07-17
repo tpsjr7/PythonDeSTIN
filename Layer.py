@@ -3,9 +3,7 @@
 Created on Tue Jul  3 2014
 @author: teddy
 """
-from loadData import *
 from Node import *
-
 
 class Layer:
     def __init__(self, LayerNum, NumberOfNodes, PatchMode=None, ImageType=None):
@@ -15,7 +13,11 @@ class Layer:
         self.NumberOfNodes = NumberOfNodes  # Usually a list with two elements
         Row = NumberOfNodes[0]
         Col = NumberOfNodes[1]
-        Nodes = [[Node(LayerNum, [i, j]) for j in range(Row)] for i in range(Col)]
+        if LayerNum == 0:
+            Nodes = [[Node(LayerNum, [i, j], load_cifar(4)) for j in range(Row)] for i in range(Col)]
+        else:
+            Nodes = [[Node(LayerNum, [i, j]) for j in range(Row)] for i in range(Col)]
+        #load_cifar(4), gives parameters necessary for normalizing and whitening input image pixels
         self.Nodes = Nodes
 
     def loadInput(self, Input, Ratio):
@@ -62,24 +64,20 @@ class Layer:
             for I in range(X):
                 for J in range(Y):
                     TN.loadInput(returnNodeInput(Input, [I, J], H, self.PatchMode,self.ImageType))
+                    TN.doNodeLearning(True)
         else:
             X = len(Input[0]) - H + 1
             Y = len(Input[1]) - V + 1
             InputTemp = np.array([])
             for I in range(X):
                 for J in range(Y):
-                    if self.LayerNumber == 0:
-                        TN.loadInput(returnNodeInput(Input, [I, J], H, self.PatchMode,self.ImageType))
-                else:
-                    for I in range(X):
-                        for J in range(Y):
-                            InputTemp = np.array([])
-                            for K in range(I, I+H):
-                                for L in range(J, J+V):
-                                    InputTemp = np.append(InputTemp, np.asarray(Input[K][L].Belief))
-                                    # Combine the Beliefs of the Nodes passed
-                            TN.loadInput(InputTemp)
-                            TN.doNodeLearning(True)
+                    InputTemp = np.array([])
+                    for K in range(I, I+H):
+                        for L in range(J, J+V):
+                            InputTemp = np.append(InputTemp, np.asarray(Input[K][L].Belief))
+                            # Combine the Beliefs of the Nodes passed
+                    TN.loadInput(InputTemp)
+                    TN.doNodeLearning(True)
 
 
     def shareCentroids(self):
