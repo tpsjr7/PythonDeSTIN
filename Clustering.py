@@ -1,8 +1,8 @@
 __author__ = 'Steven'
 # Re-implemented in Theano at iCogLabs
 import numpy as np
-from theano.tensor.shared_randomstreams import RandomStreams
-from theano import function
+#from theano.tensor.shared_randomstreams import RandomStreams
+#from theano import function
 
 
 class Clustering:
