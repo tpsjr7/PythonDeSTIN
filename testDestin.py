@@ -20,11 +20,11 @@ DESTIN = Network(numLayers, AlgorithmChoice, AlgParams, NumNodesPerLayer, PatchM
 DESTIN.setMode(NetworkMode) #training or not
 DESTIN.setLowestLayer(0)
 #Load Data
-[data, labels] = loadCifar(1) # loads cifar_data_batch_1
+[data, labels] = loadCifar(10) # loads cifar_data_batch_1
 #Initialize Network; there is is also a layer-wise initialization option
 DESTIN.initNetwork()
 #data.shape[0]
-for I in range(1):# For Every image in the data set
+for I in range(data.shape[0]):# For Every image in the data set
     if I%1000 == 0:
         print("Training Iteration Number %d" % I)
     for L in range(DESTIN.NumberOfLayers):

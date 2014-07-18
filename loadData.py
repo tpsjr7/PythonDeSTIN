@@ -3,6 +3,7 @@ from numpy import *
 import cPickle
 from random import randrange
 import numpy as np
+cifar_dir = '/eskender@ih1:~/Destin/cifar-10-batches-py/'
 # Contains loading cifar batches and
 # feeding input to lower layer nodes
 def read_cifar_file(fn):
@@ -15,7 +16,7 @@ def read_cifar_file(fn):
 def load_cifar(psz=4):
     # file strings
     # /home/teddy/Desktop/PyDeSTIN/cifar-10-batches-py
-    cifar_dir = '/home/teddy/Desktop/PyDeSTIN/cifar-10-batches-py/'
+    #cifar_dir = '/eskender@ih1:~/Destin/cifar-10-batches-py/'
     #cifar_dir = '/home/syoung22/Data/cifar-10-batches-py/'
     filenames = ['data_batch_1', 'data_batch_2',
                  'data_batch_3', 'data_batch_4',
@@ -104,27 +105,27 @@ def loadCifar(batchNum):
     # For training_batches specify numbers 1 to 5
     # for the test set pass 6
     if batchNum <= 5:
-        FileName = 'Cifar/data_batch_' + str(batchNum)
+        FileName = cifar_dir + '/data_batch_' + str(batchNum)
         FID = open(FileName, 'rb')
         dict = cPickle.load(FID)
         FID.close()
         return dict['data'], dict['labels']
     elif batchNum == 6:
-        FileName = 'Cifar/test_batch'
+        FileName = cifar_dir + '/test_batch'
         FID = open(FileName, 'rb')
         dict = cPickle.load(FID)
         FID.close()
         return dict['data'], dict['labels']
     else:  # here we will get the whole 50,000x3072 dataset
         I = 0
-        FileName = 'Cifar/data_batch_' + str(I + 1)
+        FileName = cifar_dir + '/data_batch_' + str(I + 1)
         FID = open(FileName, 'rb')
         dict = cPickle.load(FID)
         FID.close()
         data = dict['data']
         labels = dict['labels']
         for I in range(1, 5):
-            FileName = 'Cifar/data_batch_' + str(I + 1)
+            FileName = cifar_dir + '/data_batch_' + str(I + 1)
             FID = open(FileName, 'rb')
             dict = cPickle.load(FID)
             FID.close()
