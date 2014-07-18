@@ -2,7 +2,6 @@ cifarOld.py
 Cifar/*
 testFiles/*
 #.gitignore
-LearningAlgorithm.pyc
 Node.pyc
 README.txt~
 loadData.pyc
@@ -12,4 +11,5 @@ TODOIST.txt~
 octave-core
 ClusteringTheano.py
 testSupervisedClustering.py
-testSupervisedClustering.pyc
+*.pyc
+octave-core

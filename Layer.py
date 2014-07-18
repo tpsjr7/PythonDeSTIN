@@ -42,7 +42,7 @@ class Layer:
                         for L in range(J, J + Ratio):
                             InputTemp = np.append(InputTemp, np.asarray(Input[K][
                                                                             L].Belief))# Combine the Beliefs of the Nodes passed
-                    self.Nodes[Nx][Ny].loadInput(InputTemp)
+                    self.Nodes[Nx][Ny].loadInput(np.ravel(InputTemp))
                     Ny += 1
                 Nx += 1
 
@@ -52,9 +52,10 @@ class Layer:
                 self.Nodes[I][J].initNodeLearningParams(AlgorithmChoice, AlgParams)
 
     def doLayerLearning(self, Mode):
-        for I in range(len(self.Nodes)):
-            for J in range(len(self.Nodes[0])):
-                self.Nodes[I][J].doNodeLearning(Mode)
+        if Mode==True:# this is training mode
+            for I in range(len(self.Nodes)):
+                for J in range(len(self.Nodes[0])):
+                    self.Nodes[I][J].doNodeLearning(Mode)
     def trainTypicalNode(self,Input,windowSize):
         TN = self.Nodes[0][0]
         [H,V] = windowSize
@@ -63,6 +64,8 @@ class Layer:
             Y = Input.shape[1] - V + 1
             for I in range(X):
                 for J in range(Y):
+                    print I
+                    print J
                     TN.loadInput(returnNodeInput(Input, [I, J], H, self.PatchMode,self.ImageType))
                     TN.doNodeLearning(True)
         else:
@@ -74,17 +77,17 @@ class Layer:
                     InputTemp = np.array([])
                     for K in range(I, I+H):
                         for L in range(J, J+V):
-                            InputTemp = np.append(InputTemp, np.asarray(Input[K][L].Belief))
+                            InputTemp = np.append(InputTemp, np.array(np.ravel(Input[K][L].Belief)))
                             # Combine the Beliefs of the Nodes passed
-                    TN.loadInput(InputTemp)
+                    TN.loadInput(np.ravel(InputTemp))
                     TN.doNodeLearning(True)
-
+        self.Nodes[0][0] = TN
 
     def shareCentroids(self):
-        for I in range(self.Nodes):
-            for J in range(self.Nodes[0]):
-                self.Nodes[I][J].LearningAlgorithm.mean = self.Nodes[0][0].LearningAlgorithm.mean
+        for I in range(len(self.Nodes)):
+            for J in range(len(self.Nodes[0])):
+                self.Nodes[I][J] = self.Nodes[0][0]
     def updateBeliefs(self):
-        for I in range(self.Nodes):
-            for J in range(self.Nodes[0]):
+        for I in range(len(self.Nodes)):
+            for J in range(len(self.Nodes[0])):
                 self.Nodes[I][J].doNodeLearning(False)

@@ -21,7 +21,7 @@ DESTIN.setMode(NetworkMode) #training or not
 DESTIN.setLowestLayer(0)
 #Load Data
 [data, labels] = loadCifar(1) # loads cifar_data_batch_1
-#Initialize Network; there is is also a layer initialization option
+#Initialize Network; there is is also a layer-wise initialization option
 DESTIN.initNetwork()
 #data.shape[0]
 for I in range(data.shape[0]):# For Every image in the data set
@@ -30,13 +30,14 @@ for I in range(data.shape[0]):# For Every image in the data set
     for L in range(DESTIN.NumberOfLayers):
         if L == 0:
             img = data[I][:].reshape(32,32,3)
-            DESTIN.Layers[0][L].loadInput(img,4)# loadInput to Layer[0]
+            DESTIN.Layers[0][L].trainTypicalNode(img,[4,4])
         else:
-            DESTIN.Layers[0][L].loadInput(DESTIN.Layers[0][L-1].Nodes,2)
-        DESTIN.Layers[0][L].doLayerLearning(NetworkMode)
+            DESTIN.Layers[0][L].trainTypicalNode(DESTIN.Layers[0][L-1].Nodes,[2,2])
+        DESTIN.Layers[0][L].shareCentroids()
+
     DESTIN.updateBeliefExporter()
 DESTIN.dumpBelief()
-DESTIN.cleanBeliefExporter()#Get ridoff accumulated training beliefs
+DESTIN.cleanBeliefExporter()#Get rid-off accumulated training beliefs
 print("Testing Started")
 NetworkMode = False
 DESTIN.setMode(NetworkMode)
@@ -49,10 +50,10 @@ for I in range(data.shape[0]):# For Every image in the data set
     for L in range(DESTIN.NumberOfLayers):
         if L == 0:
             img = data[I][:].reshape(32,32,3)
-            DESTIN.Layers[0][L].loadInput(img,4)# loadInput to Layer[0]
+            DESTIN.Layers[0][L].loadInput(img,[4,4])# loadInput to Layer[0]
         else:
-            DESTIN.Layers[0][L].loadInput(DESTIN.Layers[0][L-1].Nodes,2)
-        DESTIN.Layers[0][L].doLayerLearning(NetworkMode)
+            DESTIN.Layers[0][L].loadInput(DESTIN.Layers[0][L-1].Nodes,[2,2])
+        DESTIN.Layers[0][L].doLayerLearning(False)# Only belief calculation NoTraining
     DESTIN.updateBeliefExporter()
 DESTIN.dumpBelief()
 # TODO Network Mode has to be specified only once (in the Network Class)
