@@ -24,17 +24,17 @@ DESTIN.setLowestLayer(0)
 #Initialize Network; there is is also a layer-wise initialization option
 DESTIN.initNetwork()
 #data.shape[0]
-for I in range(data.shape[0]):# For Every image in the data set
-    if I%1 == 0:
+for I in range(1):# For Every image in the data set
+    if I%1000 == 0:
         print("Training Iteration Number %d" % I)
     for L in range(DESTIN.NumberOfLayers):
+        #print("Layer %d" % L)
         if L == 0:
             img = data[I][:].reshape(32,32,3)
             DESTIN.Layers[0][L].trainTypicalNode(img,[4,4])
         else:
             DESTIN.Layers[0][L].trainTypicalNode(DESTIN.Layers[0][L-1].Nodes,[2,2])
         DESTIN.Layers[0][L].shareCentroids()
-
     DESTIN.updateBeliefExporter()
 DESTIN.dumpBelief()
 DESTIN.cleanBeliefExporter()#Get rid-off accumulated training beliefs

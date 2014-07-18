@@ -64,10 +64,9 @@ class Layer:
             Y = Input.shape[1] - V + 1
             for I in range(X):
                 for J in range(Y):
-                    print I
-                    print J
                     TN.loadInput(returnNodeInput(Input, [I, J], H, self.PatchMode,self.ImageType))
                     TN.doNodeLearning(True)
+            #print("I=%d and J=%d" % (I,J))
         else:
             X = len(Input[0]) - H + 1
             Y = len(Input[1]) - V + 1
@@ -81,6 +80,7 @@ class Layer:
                             # Combine the Beliefs of the Nodes passed
                     TN.loadInput(np.ravel(InputTemp))
                     TN.doNodeLearning(True)
+            #print("I=%d and J=%d" % (I,J))
         self.Nodes[0][0] = TN
 
     def shareCentroids(self):

@@ -1,4 +1,3 @@
-﻿
 PythonDeSTIN is a repo for the development of Python DeSTIN (PyDeSTIN).
 As a starting point: 
 	-> here I have developed a Node and Learning Algorithm Classes
@@ -12,16 +11,22 @@ The Classes will be placed in a nested fashion as follows:
      Layer
     	Node
 	      LearningAlgorithm
+Installation Instructions:
+-> Clone the repo by running
+    git clone https://github.com/tedyhabtegebrial/PythonDeSTIN.git
+-> checkout to the UniformDeSTIN
+    git checkout UniformDeSTIN
+-> Downoad Cifar dataset for training and testing 
+    Available at http://www.cs.toronto.edu/~kriz/cifar.html
+    Download the python version
+-> Edit loadData.py to modify the location of the Cifar directory/ where you placed the downloaded cifar dataset
+-> run testDestin.py
+_______________________________ Nessesary Libraries
+You need to have python>2.73, Numpy and Scipy libraries installed
+For the future versions theano will also be necessary so installing theano is optional at this time
 
-
-TODO List:
-- Learning Algorithms in Theano:
-	- Online Non-Negative Sparse AutoEncoder
-	- Stable Incremental Clustering 
-- Data Preprocessing i.e ZCA Whitening and Normalization
-- A Network Class
-
-Taking into consideration points listed here: http://wiki.opencog.org/w/New_DeSTIN_Redesign_Proposal	
+Outlines for the Development of DeSTIN in robust Spatio-Temporal Inference Engine
+Taking into consideration points listed @: http://wiki.opencog.org/w/New_DeSTIN_Redesign_Proposal	
 We will have explicit branches for A to D.
 
 A) pure DeSTIN Framework: flexible enough to support different learning algorithms
