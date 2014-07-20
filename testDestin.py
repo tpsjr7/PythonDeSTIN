@@ -53,7 +53,7 @@ for I in range(data.shape[0]):# For Every image in the data set
             DESTIN.Layers[0][L].loadInput(img,[4,4])# loadInput to Layer[0]
         else:
             DESTIN.Layers[0][L].loadInput(DESTIN.Layers[0][L-1].Nodes,[2,2])
-        DESTIN.Layers[0][L].doLayerLearning(False)# Only belief calculation NoTraining
+        DESTIN.Layers[0][L].doLayerLearning()# Only belief calculation NoTraining
     DESTIN.updateBeliefExporter()
 DESTIN.dumpBelief()
 # TODO Network Mode has to be specified only once (in the Network Class)

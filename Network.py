@@ -22,6 +22,8 @@ class Network():
 
     def setMode(self, Mode):
         self.OperatingMode = Mode
+        for I in range(self.Layers[0]):
+            self.Layers[0][I].Mode = Mode
     def initNetwork(self):
         for L in range(self.NumberOfLayers):
             self.initLayer(L)

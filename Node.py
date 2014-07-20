@@ -4,9 +4,7 @@ Created on Tue Jul  2 2014
 @author: teddy
 """
 
-from LearningAlgorithm import *
 from Clustering import *
-from loadData import *
 
 class Node:
     def __init__(self, LayerNumber, NodePos, cifarstat={'patch_mean':[],'patch_std':[],'whiten_mat':[]}):
@@ -21,12 +19,12 @@ class Node:
     def initNodeLearningParams(self, AlgorithmChoice, AlgParams):
         self.AlgorithmChoice = AlgorithmChoice
         if AlgorithmChoice == 'Clustering':
-            InputWidths = AlgParams['NumCentsPerLayer']
+            CentsPerLayer = AlgParams['NumCentsPerLayer']
             # InputWidth = InputWidths[LayerNum]
             if self.LayerNumber == 0:
                 InputWidth = 48
             else:
-                InputWidth = InputWidths[self.LayerNumber] * 4
+                InputWidth = CentsPerLayer[self.LayerNumber-1] * 4
             self.LearningAlgorithm = Clustering(AlgParams['mr'], AlgParams['vr'], AlgParams['sr'], InputWidth,
                                                 AlgParams['NumCentsPerLayer'][self.LayerNumber], self.NodePosition)
         else:
@@ -44,4 +42,4 @@ class Node:
             self.LearningAlgorithm.update_node(self.Input, Mode)
             self.Belief = self.LearningAlgorithm.belief
         else:
-            print("only Incremental Clustering Algorithm Exists")
+            print("Only Incremental Clustering Algorithm Exists")

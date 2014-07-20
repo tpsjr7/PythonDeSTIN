@@ -4,7 +4,7 @@ Created on Tue Jul  3 2014
 @author: teddy
 """
 from Node import *
-
+from loadData import *
 class Layer:
     def __init__(self, LayerNum, NumberOfNodes, PatchMode=None, ImageType=None):
         self.PatchMode = PatchMode
@@ -18,6 +18,7 @@ class Layer:
         else:
             Nodes = [[Node(LayerNum, [i, j]) for j in range(Row)] for i in range(Col)]
         self.Nodes = Nodes
+        self.Mode = []
 
     def loadInput(self, Input, Ratio):
         # Ratio equals to the number of lower layer units getting combined and being fed to the upper layer
@@ -50,11 +51,10 @@ class Layer:
             for J in range(len(self.Nodes[0])):
                 self.Nodes[I][J].initNodeLearningParams(AlgorithmChoice, AlgParams)
 
-    def doLayerLearning(self, Mode):
-        if Mode==True:# this is training mode
-            for I in range(len(self.Nodes)):
-                for J in range(len(self.Nodes[0])):
-                    self.Nodes[I][J].doNodeLearning(Mode)
+    def doLayerLearning(self):
+        for I in range(len(self.Nodes)):
+            for J in range(len(self.Nodes[0])):
+                self.Nodes[I][J].doNodeLearning(self.Mode)
     def trainTypicalNode(self,Input,windowSize):
         TN = self.Nodes[0][0]
         [H,V] = windowSize
@@ -63,12 +63,11 @@ class Layer:
             Y = Input.shape[1] - V + 1
             for I in range(X):
                 for J in range(Y):
-                    TN.loadInput(returnNodeInput(Input, [I, J], H, self.PatchMode,self.ImageType))
-                    TN.doNodeLearning(True)
+                    TN.loadInput(returnNodeInput(Input, [I, J], H, self.PatchMode, self.ImageType))
+                    TN.doNodeLearning(self.Mode)
         else:
             X = len(Input[0]) - H + 1
             Y = len(Input[1]) - V + 1
-            InputTemp = np.array([])
             for I in range(X):
                 for J in range(Y):
                     InputTemp = np.array([])
@@ -77,7 +76,7 @@ class Layer:
                             InputTemp = np.append(InputTemp, np.array(np.ravel(Input[K][L].Belief)))
                             # Combine the Beliefs of the Nodes passed
                     TN.loadInput(np.ravel(InputTemp))
-                    TN.doNodeLearning(True)
+                    TN.doNodeLearning(self.Nodes)
         self.Nodes[0][0] = TN
 
     def shareCentroids(self):
