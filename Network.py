@@ -22,7 +22,7 @@ class Network():
 
     def setMode(self, Mode):
         self.OperatingMode = Mode
-        for I in range(self.Layers[0]):
+        for I in range(self.NumberOfLayers):
             self.Layers[0][I].Mode = Mode
     def initNetwork(self):
         for L in range(self.NumberOfLayers):
