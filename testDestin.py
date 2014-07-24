@@ -2,6 +2,12 @@ __author__ = 'teddy'
 from Network import *
 import numpy.random as rng
 from loadData import *
+print("Uniform DeSTIN")
+"""
+Here I don't move the image, I rather let the nodes move around the image
+This is to make use of the methods from the previous UniformDeSTIN version
+
+"""
 # *****Define Parameters for the Network and Nodes
 
 #Network Params
@@ -20,12 +26,13 @@ DESTIN = Network(numLayers, AlgorithmChoice, AlgParams, NumNodesPerLayer, PatchM
 DESTIN.setMode(NetworkMode) #training or not
 DESTIN.setLowestLayer(0)
 #Load Data
-[data, labels] = loadCifar(10) # loads cifar_data_batch_1
+#[data, labels] = loadCifar(10) # loads cifar_data_batch_1
+data = np.random.rand(5,32*32*3)
 #Initialize Network; there is is also a layer-wise initialization option
 DESTIN.initNetwork()
 #data.shape[0]
 for I in range(data.shape[0]):# For Every image in the data set
-    if I%1000 == 0:
+    if I%1 == 0:
         print("Training Iteration Number %d" % I)
     for L in range(DESTIN.NumberOfLayers):
         if L == 0:
@@ -40,11 +47,11 @@ DESTIN.cleanBeliefExporter()#Get rid-off accumulated training beliefs
 print("Testing Started")
 NetworkMode = False
 DESTIN.setMode(NetworkMode)
-del data, labels
-[data,labels] = loadCifar(6)
-del labels
+#del data, labels
+data = np.random.rand(5,32*32*3)
+#del labels
 for I in range(data.shape[0]):# For Every image in the data set
-    if I%1000 == 0:
+    if I%1 == 0:
         print("Testing Iteration Number %d" % I)
     for L in range(DESTIN.NumberOfLayers):
         if L == 0:
