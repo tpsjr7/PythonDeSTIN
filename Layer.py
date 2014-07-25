@@ -20,7 +20,8 @@ class Layer:
         self.Nodes = Nodes
         self.Mode = []
 
-    def loadInput(self, Input, Ratio):
+    def loadInput(self, Input, R):
+        Ratio = R[0]
         # Ratio equals to the number of lower layer units getting combined and being fed to the upper layer
         if self.LayerNumber == 0:
             Nx = 0  # X coordinate of the current node

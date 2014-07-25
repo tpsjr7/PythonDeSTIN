@@ -3,8 +3,8 @@ __author__ = 'Steven'
 import numpy as np
 import theano.tensor as T
 from theano import function
-#from theano.tensor.shared_randomstreams import RandomStreams
-#from theano import function
+from theano.tensor.shared_randomstreams import RandomStreams
+from theano import function
 
 
 class Clustering:
@@ -23,17 +23,17 @@ class Clustering:
         """
         Initialization function used by the base class and subclasses.
         """
-
         self.MEANRATE = mr
         self.VARRATE = vr
         self.STARVRATE = sr
         self.DIMS = di
         self.CENTS = ce
         self.ID = node_id
-        #srng = RandomStreams(seed=100)
-        #rv_u = srng.uniform((self.CENTS, self.DIMS))
-        #f = function([], rv_u)
-        self.mean = 255*np.random.rand(self.CENTS, self.DIMS)
+        srng = RandomStreams(seed=100)
+        rv_u = srng.uniform((self.CENTS, self.DIMS))
+        f = function([], rv_u)
+        #self.mean = np.random.rand(self.CENTS, self.DIMS)
+        self.mean = f()
         #print self.mean
         self.var = 0.001 * np.ones((self.CENTS, self.DIMS))
         self.starv = np.ones((self.CENTS, 1))

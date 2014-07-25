@@ -26,13 +26,13 @@ DESTIN = Network(numLayers, AlgorithmChoice, AlgParams, NumNodesPerLayer, PatchM
 DESTIN.setMode(NetworkMode) #training or not
 DESTIN.setLowestLayer(0)
 #Load Data
-#[data, labels] = loadCifar(10) # loads cifar_data_batch_1
-data = np.random.rand(5,32*32*3)
+[data, labels] = loadCifar(10) # loads cifar_data_batch_1
+#data = np.random.rand(5,32*32*3)
 #Initialize Network; there is is also a layer-wise initialization option
 DESTIN.initNetwork()
 #data.shape[0]
 for I in range(data.shape[0]):# For Every image in the data set
-    if I%1 == 0:
+    if I%1000 == 0:
         print("Training Iteration Number %d" % I)
     for L in range(DESTIN.NumberOfLayers):
         if L == 0:
@@ -47,11 +47,12 @@ DESTIN.cleanBeliefExporter()#Get rid-off accumulated training beliefs
 print("Testing Started")
 NetworkMode = False
 DESTIN.setMode(NetworkMode)
-#del data, labels
-data = np.random.rand(5,32*32*3)
-#del labels
+del data, labels
+[data, labels] = loadCifar(6)
+#data = np.random.rand(5,32*32*3)
+del labels
 for I in range(data.shape[0]):# For Every image in the data set
-    if I%1 == 0:
+    if I%1000 == 0:
         print("Testing Iteration Number %d" % I)
     for L in range(DESTIN.NumberOfLayers):
         if L == 0:
