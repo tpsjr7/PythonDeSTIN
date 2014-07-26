@@ -35,7 +35,6 @@ class Node:
             In = In - self.patch_mean
             In = In/self.patch_std
             In = In.dot(self.v)
-            print In
         self.Input = In
 
     def doNodeLearning(self, Mode):

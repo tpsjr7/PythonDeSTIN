@@ -23,6 +23,7 @@ class Clustering:
         """
         Initialization function used by the base class and subclasses.
         """
+
         self.MEANRATE = mr
         self.VARRATE = vr
         self.STARVRATE = sr
@@ -32,9 +33,12 @@ class Clustering:
         srng = RandomStreams(seed=100)
         rv_u = srng.uniform((self.CENTS, self.DIMS))
         f = function([], rv_u)
-        #self.mean = np.random.rand(self.CENTS, self.DIMS)
-        self.mean = f()
+        #self.mean = 10*np.random.rand(self.CENTS, self.DIMS)
+        self.mean = 2*f()
         #print self.mean
+        var1 = T.dscalar('var1')
+        var2 = T.dmatrix('var2')
+        var3 = T.mul
         self.var = 0.001 * np.ones((self.CENTS, self.DIMS))
         self.starv = np.ones((self.CENTS, 1))
         self.belief = np.zeros((1, self.CENTS))

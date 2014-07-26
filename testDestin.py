@@ -32,7 +32,7 @@ DESTIN.setLowestLayer(0)
 DESTIN.initNetwork()
 #data.shape[0]
 for I in range(data.shape[0]):# For Every image in the data set
-    if I%1000 == 0:
+    if I%1 == 0:
         print("Training Iteration Number %d" % I)
     for L in range(DESTIN.NumberOfLayers):
         if L == 0:
