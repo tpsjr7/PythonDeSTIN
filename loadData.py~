@@ -3,6 +3,7 @@ from numpy import *
 import cPickle
 from random import randrange
 import numpy as np
+#/home/teddy/Desktop/PythonDeSTIN/Cifar
 #cifar_dir = '/eskender@ih1:~/Destin/cifar-10-batches-py/'
 cifar_dir = '/home/teddy/Desktop/PythonDeSTIN/Cifar/'
 # Contains loading cifar batches and

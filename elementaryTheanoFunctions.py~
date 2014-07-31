@@ -23,7 +23,18 @@ def theanoMatMatSub(In1,In2):
     var3 = T.sub(var1, var2)
     SubMat = function([var1,var2],var3)
     return SubMat(In1,In2)
-
+def theanoMatMatMul(In1,In2,option):
+    if option == 'M':
+        var1 = T.fmatrix('var1')
+        var2 = T.fmatrix('var2')
+        var3 = T.fot(var1,var2)
+        MulMat = function([var1,var2],var3)
+    else:
+        var1 = T.fmatrix('var1')
+        var2 = T.fmatrix('var2')
+        var3 = T.mul(var1,var2)
+        MulMat = function([var1,var2], var3)
+    return MulMat(In1,In2)
 def theanoMatSum(In1,axs):
     var1 = T.fmatrix('var1')
     MatSum = function([var1],T.sum(var1,axis=axs))
