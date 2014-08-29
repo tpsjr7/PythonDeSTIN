@@ -7,6 +7,7 @@ from time import time
 numLayers = 4
 NumNodesPerLayer = [[8, 8], [4, 4], [2, 2], [1, 1]]
 NumCentsPerLayer = [25, 25, 25, 25]
+lowestLayer = 0
 PatchMode = 'Adjacent'  #
 ImageType = 'Color'
 NetworkMode = True # training is set true
@@ -17,16 +18,16 @@ AlgParams = {'mr': 0.05, 'vr': 0.05, 'sr': 0.001, 'DIMS': [], 'CENTS': [], 'node
 #Declare a Network Object
 DESTIN = Network(numLayers, AlgorithmChoice, AlgParams, NumNodesPerLayer, PatchMode, ImageType)
 DESTIN.setMode(NetworkMode) #training or not
-DESTIN.setLowestLayer(0)
+DESTIN.setLowestLayer(lowestLayer)
 #Load Data
 [data, labels] = loadCifar(1) # loads cifar_data_batch_1
 #Initialize Network; there is is also a layer-wise initialization option
 DESTIN.initNetwork()
 #data.shape[0]
-t = time()
-ret = load_cifar()
-DESTIN.network_init_whitening(ret['patch_mean'], ret['patch_std'], ret['whiten_mat'])
-for I in range(1000):
+#t = time()
+#ret = load_cifar()
+#DESTIN.network_init_whitening(ret['patch_mean'], ret['patch_std'], ret['whiten_mat'])
+for I in range(data.shape[0]):
     if I%100 == 0:
         print("Training Iteration Number %d" % I)
     for L in range(DESTIN.NumberOfLayers):
@@ -34,10 +35,10 @@ for I in range(1000):
             img = data[I][:].reshape(32,32,3)
             #img = 0.5*img[:,:,0] + 0.4*img[:,:,1] + 0.1*img[:,:,2]
             DESTIN.Layers[0][L].loadInput(img,[4,4])
-            DESTIN.Layers[0][L].doLayerLearning(True)
+            DESTIN.Layers[0][L].doLayerLearning()
         else:
             DESTIN.Layers[0][L].loadInput(DESTIN.Layers[0][L-1].Nodes,[2,2])
-            DESTIN.Layers[0][L].doLayerLearning(True)
+            DESTIN.Layers[0][L].doLayerLearning()
     DESTIN.updateBeliefExporter()
     if I in range(999,50999,1000):
         Name = 'train/' + str(I+1) + '.txt'
@@ -61,10 +62,10 @@ for I in range(data.shape[0]):# For Every image in the data set
         if L == 0:
             img = data[I][:].reshape(32,32,3)
             DESTIN.Layers[0][L].loadInput(img,[4,4])# loadInput to Layer[0]
-            DESTIN.Layers[0][L].doLayerLearning(False)
+            DESTIN.Layers[0][L].doLayerLearning()
         else:
             DESTIN.Layers[0][L].loadInput(DESTIN.Layers[0][L-1].Nodes,[2,2])
-            DESTIN.Layers[0][L].doLayerLearning(False)
+            DESTIN.Layers[0][L].doLayerLearning()
     DESTIN.updateBeliefExporter()
     if I in range(999,10999,1000):
         Name = 'test/' + str(I+1) + '.txt'
