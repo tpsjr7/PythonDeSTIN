@@ -1,6 +1,9 @@
+*~
 cifarOld.py
 Cifar/*
 testFiles/*
+test/*
+train/*
 #.gitignore
 Node.pyc
 README.txt~

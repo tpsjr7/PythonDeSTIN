@@ -24,7 +24,7 @@ DESTIN.setLowestLayer(lowestLayer)
 #Initialize Network; there is is also a layer-wise initialization option
 DESTIN.initNetwork()
 #data.shape[0]
-#t = time()
+t = time()
 #ret = load_cifar()
 #DESTIN.network_init_whitening(ret['patch_mean'], ret['patch_std'], ret['whiten_mat'])
 for I in range(data.shape[0]):
@@ -49,7 +49,7 @@ for I in range(data.shape[0]):
 print time() - t
 exit(0)
 print("Testing Started")
-t = time
+t = time()
 NetworkMode = False
 DESTIN.setMode(NetworkMode)
 del data, labels

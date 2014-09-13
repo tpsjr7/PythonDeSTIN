@@ -1,6 +1,8 @@
 cifarOld.py
 Cifar/*
 testFiles/*
+test/*
+train/*
 #.gitignore
 Node.pyc
 README.txt~
@@ -13,4 +15,3 @@ ClusteringTheano.py
 testSupervisedClustering.py
 *.pyc
 octave-core
-.idea/*
